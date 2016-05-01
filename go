@@ -1,0 +1,1 @@
+./gradlew dropgradle-service:run

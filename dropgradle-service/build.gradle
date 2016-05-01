@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+// UTF-8 should be standard by now. So use it!
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+// Add Gradle Shadow Plugin
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    sourceCompatibility = '1.8'
+}
+
+dependencies {
+    def dropwizardVersion = '0.9.2'
+    def dropwizardJava8ModulesVersion = '0.9.0-1'
+
+    compile "io.dropwizard:dropwizard-core:$dropwizardVersion"
+    compile "io.dropwizard.modules:dropwizard-java8:$dropwizardJava8ModulesVersion"
+}
+
+mainClassName = 'pro.pengin.dropgradle.DropgradleApplication'
+
+// Configure the run task to start the Dropwizard service
+run {
+    args 'server', './DropgradleServiceConfig.yml'
+}
+
+shadowJar {
+    mergeServiceFiles()
+}

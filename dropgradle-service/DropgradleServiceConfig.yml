@@ -1,0 +1,15 @@
+server:
+  type: simple
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 9420
+
+logging:
+  level: INFO
+  loggers:
+    "pro.pengin": DEBUG
+
+applicationConfig:
+  applicationVersionFilePath:
